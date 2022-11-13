@@ -2,19 +2,19 @@
 session_start();
 require('../models/loginModel.php');
 
-function doLogin($username, $password)
-{
-    $con= getConnection();
-    $sql = "select * from user_login where username='{$username}' and password='{$password}'";
-    $result = oci_parse($con, $sql);
-    oci_execute($result);
-    //return $result;
-    if ($result=oci_fetch_assoc($result)) {
-      return $result;
-    } else {
-        return false;
-    }
-}
+// function doLogin($username, $password)
+// {
+//     $con= getConnection();
+//     $sql = "select * from user_login where username='{$username}' and password='{$password}'";
+//     $result = oci_parse($con, $sql);
+//     oci_execute($result);
+//     //return $result;
+//     if ($result=oci_fetch_assoc($result)) {
+//       return $result;
+//     } else {
+//         return false;
+//     }
+// }
 
 $username = $_GET['username'];
 $password = $_GET['password'];
