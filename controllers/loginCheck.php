@@ -26,7 +26,10 @@ $statusAc = doLogin($username, $password);
 				$_SESSION['status'] = "true";
 				setcookie('status', 'true', time()+600, '/');
                 $row=$statusAc;
-                echo 'you logged in as a '.$row['ROLE'];
+				if($row['ROLE']=='Waiter'){
+				header("location: ../views/waiterHome.php?workerid=$row[WORKER_ID]&userName=$row[USERNAME]");
+				}
+                //echo 'you logged in as a '.$row['ROLE'];
                 //print_r($statusAc);
 				//$row = oci_fetch_array($statusAc);
                 //print_r($row);
