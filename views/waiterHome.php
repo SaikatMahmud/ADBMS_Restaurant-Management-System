@@ -29,63 +29,64 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
-    <h2 align="center">Welcome <u><?= $username ?></u> as waiter</h2>
+    <h2 align="center">You logged in as <u><?= $username ?></u> -waiter</h2>
     <h3 align="right"><a href="../controllers/logout.php"> logout</a></h3>
-
+    <br />
+    <button><a href="showAllitems_waiter.php">Show All Items </a> </button><br></br>
     <form method="POST" action="#">
         <fieldset>
             <legend>Take Order</legend>
 
             <table>
-            <fieldset>
-                <tr>
-                    <td>Customer name</td>
+              <h3>Insert customer info first:</h3>
+                    <tr>
+                        <td>Customer name</td>
+                        <td>
+                            <input type="text" name="cus_name" value="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Customer mobile</td>
+                        <td>
+                            <input type="text" name="cus_mob" value="">
+                        </td>
+                    </tr>
+
+               
+                <!-- <tr>
+                    <td>Branch</td>
                     <td>
-                        <input type="text" name="cus_name" value="">
+                        <input type="text" name="branch" value="">
                     </td>
+
                 </tr>
                 <tr>
-                    <td>Customer mobile</td>
+                    <td>Contact</td>
                     <td>
-                        <input type="text" name="cus_mob" value="">
+                        <input type="text" name="contact" value="">
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>
+                        <input type="text" name="email" value="">
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>Manager ID</td>
+                    <td>
+                        <input type="text" name="managerID" value="">
+                    </td>
+
+                </tr> -->
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" name="submit" value="Next">
                     </td>
                 </tr>
-       
-</fieldset>
-            <tr>
-                <td>Branch</td>
-                <td>
-                    <input type="text" name="branch" value="">
-                </td>
-
-            </tr>
-            <tr>
-                <td>Contact</td>
-                <td>
-                    <input type="text" name="contact" value="">
-                </td>
-
-            </tr>
-            <tr>
-                <td>Email</td>
-                <td>
-                    <input type="text" name="email" value="">
-                </td>
-
-            </tr>
-            <tr>
-                <td>Manager ID</td>
-                <td>
-                    <input type="text" name="managerID" value="">
-                </td>
-
-            </tr>
-            <tr>
-                <td></td>
-                <td>
-                    <input type="submit" name="submit" value="Save">
-                </td>
-            </tr>
             </table>
         </fieldset>
     </form>
