@@ -29,6 +29,9 @@ $statusAc = doLogin($username, $password);
 				if($row['ROLE']=='Waiter'){
 				header("location: ../views/waiterHome.php?workerid=$row[WORKER_ID]&userName=$row[USERNAME]");
 				}
+				if($row['ROLE']=='Admin'){
+				header("location: ../views/adminHome.php?workerid=$row[WORKER_ID]&userName=$row[USERNAME]");
+				}
                 //echo 'you logged in as a '.$row['ROLE'];
                 //print_r($statusAc);
 				//$row = oci_fetch_array($statusAc);
