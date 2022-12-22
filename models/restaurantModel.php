@@ -14,7 +14,21 @@ function addRestaurant($reg,$name,$branch,$contact,$email,$managerID)
    // oci_execute($result);
     //return $result;
     if (oci_execute($result)) {
-      return true;
+        header("location: restaurants_admin.php?msg=resAdded");
+    } else {
+        return oci_error();
+    }
+}
+
+function getAllRes()
+{
+    $con= getConnection();
+    $sql = "select * from restaurants";
+    $result = oci_parse($con, $sql);
+   // oci_execute($result);
+    //return $result;
+    if (oci_execute($result)) {
+      return $result;
     } else {
         return oci_error();
     }

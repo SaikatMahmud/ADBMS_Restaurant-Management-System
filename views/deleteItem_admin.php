@@ -5,7 +5,7 @@
 	$deleted= deleteItem($id);
 	if($deleted)
 	{
-		header("location: allItems_admin.php");
+		header("location: allItems_admin.php?msg=delSucc");
 	}
 	else{
 		header("location: allItems_admin.php?msg=deleteError");
