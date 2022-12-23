@@ -24,7 +24,7 @@ $statusAc = doLogin($username, $password);
 
 		if($statusAc){
 				$_SESSION['status'] = "true";
-				setcookie('status', 'true', time()+600, '/');
+				setcookie('status', 'true', time()+6000, '/');
                 $row=$statusAc;
 				if($row['ROLE']=='Waiter'){
 				header("location: ../views/waiterHome.php?workerid=$row[WORKER_ID]&userName=$row[USERNAME]");

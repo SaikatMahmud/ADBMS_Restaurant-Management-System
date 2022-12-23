@@ -18,14 +18,14 @@ if (isset($_REQUEST['edit'])) {
 
     if ($current_no && $description && $price) {
         $update = editItem($current_no,$description,$price, $prev_no);
-        if ($update) {
-            header("location: productListAdmin.php");
-            // $printUpdate="Update successfull...";
-            // header("location: edit.php?id=$id&msg=$printUpdate");
+        // if ($update) {
+        //     header("location: productListAdmin.php");
+        //     // $printUpdate="Update successfull...";
+        //     // header("location: edit.php?id=$id&msg=$printUpdate");
 
-        } else {
-            $printUpdate = "Operation Failed";
-        }
+        // } else {
+        //     $printUpdate = "Operation Failed";
+        // }
     }
 }
 ?>
@@ -39,7 +39,7 @@ if (isset($_REQUEST['edit'])) {
 <body>
 
     <!-- <a href="home.php"> Back</a> | -->
-    <a href="../controllers/logout.php"> logout</a>
+    <h3 align="right"><a href="../controllers/logout.php"> logout</a></h3>
 
     <form method="POST" action="#">
         <fieldset>

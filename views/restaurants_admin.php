@@ -2,13 +2,16 @@
 require('header.php');
 require('../models/restaurantModel.php');
 $msg = "";
+$search_result = '';
 if (isset($_GET['msg'])) {
     if ($_GET['msg'] == 'resAdded') {
         $msg = "Restaurant added successfully !";
     } else if ($_GET['msg'] == 'editSucc') {
-        $msg = "Item edit successfull !";
+        $msg = "Restaurant edit successfull !";
+    } else if ($_GET['msg'] == 'noSresult') {
+        $msg = "No search matched !";
     } else {
-        $msg = "Item deleted !";
+        $msg = "Restaurant deleted !";
     }
 }
 
@@ -19,16 +22,27 @@ if (isset($_POST['add'])) {
     $contact = $_POST['contact'];
     $email = $_POST['email'];
     $mid = $_POST['mid'] ? $_POST['mid'] : "";
-    
+
     if ((strlen($reg) && strlen($res_name) && strlen($branch) && strlen($contact) && strlen($email)) != null) { //add items
-        addRestaurant($reg,$res_name,$branch,$contact,$email, $mid);
-    }
-    else
-    $msg="Input required fields !";
+        addRestaurant($reg, $res_name, $branch, $contact, $email, $mid);
+    } else
+        $msg = "Input required fields !";
 }
+
+if (isset($_REQUEST['search'])) {
+    $search_key = '';
+    $search_key = $_REQUEST['searchTxt'];
+    if ($search_key != null) {
+        $search_result = searchRes($search_key);
+    }
+    if ($search_result == null) {
+        header("location: restaurants_admin.php?msg=noSresult");
+    } else {
+        $msg = '';
+    }
+}
+
 ?>
-
-
 <html>
 
 <head>
@@ -88,6 +102,36 @@ if (isset($_POST['add'])) {
     </form>
     <center> <?= $msg ?> </center>
 
+    <form method='POST' action="#" align='right'>
+        <input type="text" name="searchTxt" value="">
+        <input type="submit" name="search" value="Search">
+        <br />
+        <?php
+        if ($search_result != null) { ?>
+            <table border="1" align="right">
+                <tr>
+                    <?php
+                    while ($row1 = oci_fetch_assoc($search_result)) {
+                        // print_r($row);
+                        foreach ($row1 as $i => $val1) {
+
+                            //echo $row['id'];
+                    ?>
+                            <td><?= $val1 ?></td>
+                        <?php } ?>
+                        <td>
+                            <button><a href="deleteRes_admin.php?id=<?= $row1['REG_NUM'] ?>"> Delete </a></button>
+                            |
+                            <button><a href="editRes_admin.php?id=<?= $row1['REG_NUM'] ?>"> Edit </a></button>
+                        </td>
+                </tr>
+        <?php }
+                } ?>
+        </tr>
+            </table>
+    </form>
+    <br><br>
+
     <h3 align='center'> All Restaurats</h3>
     <!-- <a href="adminHome.php"> Back</a> -->
     <table border="1" align="center">
@@ -121,11 +165,11 @@ if (isset($_POST['add'])) {
             ?>
                         <td><?= $val ?></td>
                     <?php } ?>
-                    <!-- <td>
-                        <button><a href="deleteItem_admin.php?id=<?= $row['ITEM_NO'] ?>"> Delete </a></button>
+                    <td>
+                        <button><a href="deleteRes_admin.php?id=<?= $row['REG_NUM'] ?>"> Delete </a></button>
                         |
-                        <button><a href="editItem_admin.php?id=<?= $row['ITEM_NO'] ?>"> Edit </a></button>
-                    </td> -->
+                        <button><a href="editRes_admin.php?id=<?= $row['REG_NUM'] ?>"> Edit </a></button>
+                    </td>
         </tr>
 <?php }
             } else
