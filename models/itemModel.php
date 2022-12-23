@@ -23,12 +23,13 @@ function getAllItems()
 function addItem($no,$des,$price)
 {
     $con= getConnection();
-    $sql = "insert into items values('{$no}','{$des}','{$price}')";
+    $sql = "declare hehe varchar2(50); begin additem('{$no}','{$des}','{$price}', hehe); end;";
     $result = oci_parse($con, $sql);
     // oci_execute($result);
     //return $result;
     if (oci_execute($result)) {
-        header("location: allItems_admin.php?msg=itemAdded");
+        return $result;
+       // header("location: allItems_admin.php?msg=itemAdded");
     } else {
         return oci_error();
     }

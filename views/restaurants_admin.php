@@ -105,7 +105,7 @@ if (isset($_REQUEST['search'])) {
     <form method='POST' action="#" align='right'>
         <input type="text" name="searchTxt" value="">
         <input type="submit" name="search" value="Search">
-        <br />
+        <br /><br />
         <?php
         if ($search_result != null) { ?>
             <table border="1" align="right">

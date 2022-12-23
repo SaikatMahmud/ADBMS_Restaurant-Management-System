@@ -22,10 +22,9 @@ if (isset($_POST['add'])) {
     $price_length = strlen($item_price);
 
     if ($no_length != null && $des_length != null && $price_length != null) { //add items
-        addItem($item_no, $item_des, $item_price);
-    }
-    else
-    $msg="Input required fields !";
+        $msg = addItem($item_no, $item_des, $item_price);
+    } else
+        $msg = "Input required fields !";
 }
 ?>
 

@@ -81,9 +81,9 @@ function getResByID($id)
 function searchRes($keyword)
 {
     $con= getConnection();
-    // $sql = "select * from restaurants where reg_num like '%{$keyword}%' or name like '%{$keyword}%' or branch like '%{$keyword}%'
-    // or contact_num like '%{$keyword}%' or email like '%{$keyword}%' ";
-     $sql = "select * from restaurants where branch like '%{$keyword}%' ";
+    $sql = "select * from restaurants where reg_num like '%{$keyword}%' or name like '%{$keyword}%' or branch like '%{$keyword}%'
+    or contact_num like '%{$keyword}%' or email like '%{$keyword}%' ";
+     //$sql = "select * from restaurants where branch like '%{$keyword}%' ";
     //  $sql = "select * from restaurants";
     $result = oci_parse($con, $sql);
     // oci_execute($result);
