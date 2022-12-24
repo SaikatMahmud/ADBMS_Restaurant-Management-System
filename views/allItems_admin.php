@@ -20,9 +20,14 @@ if (isset($_POST['add'])) {
     $no_length = strlen($item_no);
     $des_length = strlen($item_des);
     $price_length = strlen($item_price);
+    $ttt = '';
 
     if ($no_length != null && $des_length != null && $price_length != null) { //add items
-        $msg = addItem($item_no, $item_des, $item_price);
+        $msg=addItem($item_no, $item_des, $item_price);
+      //  $msg=$ttt;
+        // while ($rw= oci_fetch_assoc($msg)){
+        //     echo $msg[0];
+        //}
     } else
         $msg = "Input required fields !";
 }

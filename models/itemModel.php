@@ -2,34 +2,56 @@
 
 function getConnection()
 {
-    $con= oci_connect('adbms_project', 'tiger', 'localhost/XE');
+    $con = oci_connect('adbms_project', 'tiger', 'localhost/XE');
     return $con;
 }
 
 function getAllItems()
 {
-    $con= getConnection();
+    $con = getConnection();
     $sql = "select * from items";
-    $result = oci_parse($con, $sql);
-   // oci_execute($result);
-    //return $result;
-    if (oci_execute($result)) {
-      return $result;
-    } else {
-        return oci_error();
-    }
-}
-
-function addItem($no,$des,$price)
-{
-    $con= getConnection();
-    $sql = "declare hehe varchar2(50); begin additem('{$no}','{$des}','{$price}', hehe); end;";
     $result = oci_parse($con, $sql);
     // oci_execute($result);
     //return $result;
     if (oci_execute($result)) {
         return $result;
-       // header("location: allItems_admin.php?msg=itemAdded");
+    } else {
+        return oci_error();
+    }
+}
+
+// function addItem($no,$des,$price)
+// {
+//     $con= getConnection();
+
+//      $sql = "declare ttt varchar2(50); begin additem('{$no}','{$des}','{$price}',ttt); end;";
+//     //$sql = "begin additem('{$no}','{$des}','{$price}'); end;";
+//     $result = oci_parse($con, $sql);
+//     // oci_execute($result);
+//     //return $result;
+//     if (oci_execute($result)) {
+//         print_r ($result);
+//         // if ($rw=oci_fetch_assoc($result)){
+//         // return $rw;
+//         // }
+//        // header("location: allItems_admin.php?msg=itemAdded");
+//     } else {
+//         return oci_error();
+//     }
+// }
+
+function addItem($no, $des, $price)
+{
+    $con = getConnection();
+    $sql = "begin add_item(:v1, :v2, :v3, :v4); end;";
+    $result = oci_parse($con, $sql);
+    oci_bind_by_name($result, ':v1', $no);
+    oci_bind_by_name($result, ':v2', $des);
+    oci_bind_by_name($result, ':v3', $price);
+    oci_bind_by_name($result, ':v4', $got, 100);
+
+    if (oci_execute($result)) {
+        return $got;
     } else {
         return oci_error();
     }
@@ -37,21 +59,23 @@ function addItem($no,$des,$price)
 
 function deleteItem($id)
 {
-    $con= getConnection();
-    $sql = "delete from items where item_no= {$id}";
+    $con = getConnection();
+    $sql = "begin delete_item(:v1, :v2); end;";
     $result = oci_parse($con, $sql);
+    oci_bind_by_name($result, ':v1', $id);
+    oci_bind_by_name($result, ':v2', $got, 100);
     // oci_execute($result);
     //return $result;
     if (oci_execute($result)) {
-       return true;
+        return true;
     } else {
         return oci_error();
     }
 }
 
-function editItem($current_no,$des,$price, $prev_no)
+function editItem($current_no, $des, $price, $prev_no)
 {
-    $con= getConnection();
+    $con = getConnection();
     $sql = "update Items set item_no={$current_no}, description='{$des}', price='{$price}' where item_no={$prev_no}";
     $result = oci_parse($con, $sql);
     // oci_execute($result);
@@ -65,16 +89,14 @@ function editItem($current_no,$des,$price, $prev_no)
 
 function getItemByID($id)
 {
-    $con= getConnection();
+    $con = getConnection();
     $sql = "select * from items where item_no={$id}";
     $result = oci_parse($con, $sql);
     // oci_execute($result);
     //return $result;
     if (oci_execute($result)) {
-       return $result;
+        return $result;
     } else {
         return oci_error();
     }
 }
-
-?>
