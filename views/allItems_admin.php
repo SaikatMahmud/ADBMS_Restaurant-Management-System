@@ -2,11 +2,15 @@
 require('header.php');
 require('../models/itemModel.php');
 $msg = "";
+$search_result = '';
+
 if (isset($_GET['msg'])) {
     if ($_GET['msg'] == 'itemAdded') {
         $msg = "Item added successfully !";
     } else if ($_GET['msg'] == 'editSucc') {
         $msg = "Item edit successfull !";
+    } else if ($_GET['msg'] == 'noSresult') {
+        $msg = "No search matched !";
     } else {
         $msg = "Item deleted !";
     }
@@ -23,16 +27,29 @@ if (isset($_POST['add'])) {
     $ttt = '';
 
     if ($no_length != null && $des_length != null && $price_length != null) { //add items
-        $msg=addItem($item_no, $item_des, $item_price);
-      //  $msg=$ttt;
+        $msg = addItem($item_no, $item_des, $item_price);
+        //  $msg=$ttt;
         // while ($rw= oci_fetch_assoc($msg)){
         //     echo $msg[0];
         //}
     } else
         $msg = "Input required fields !";
 }
-?>
 
+
+if (isset($_REQUEST['search'])) {
+    $search_key = '';
+    $search_key = $_REQUEST['searchTxt'];
+    if ($search_key != null) {
+        $search_result = searchItem($search_key);
+    }
+    if ($search_result == null) {
+        header("location: allItems_admin.php?msg=noSresult");
+    } else {
+        $msg = '';
+    }
+}
+?>
 
 <html>
 
@@ -74,6 +91,35 @@ if (isset($_POST['add'])) {
 
     </form>
     <center> <?= $msg ?> </center>
+    <form method='POST' action="#" align='right'>
+        <input type="text" name="searchTxt" value="">
+        <input type="submit" name="search" value="Search">
+        <br /><br />
+        <?php
+        if ($search_result != null) { ?>
+            <table border="1" align="right">
+                <tr>
+                    <?php
+                    while ($row1 = oci_fetch_assoc($search_result)) {
+                        // print_r($row);
+                        foreach ($row1 as $i => $val1) {
+
+                            //echo $row['id'];
+                    ?>
+                            <td><?= $val1 ?></td>
+                        <?php } ?>
+                        <td>
+                            <button><a href="deleteItem_admin.php?id=<?= $row1['ITEM_NO'] ?>"> Delete </a></button>
+                            |
+                            <button><a href="editItem_admin.php?id=<?= $row1['ITEM_NO'] ?>"> Edit </a></button>
+                        </td>
+                </tr>
+        <?php }
+                } ?>
+        </tr>
+            </table>
+    </form>
+    <br><br>
 
     <h3 align='center'> All items</h3>
     <!-- <a href="adminHome.php"> Back</a> -->

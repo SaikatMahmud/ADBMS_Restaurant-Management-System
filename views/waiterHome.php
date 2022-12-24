@@ -1,22 +1,26 @@
 <?php
 require('header.php');
+require('../models/customerModel.php');
+
 $worker_id = $_GET['workerid'];
 $username = $_GET['userName'];
 
 
-if (isset($_POST['submit'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $usernamelength = strlen($username);
-    $passwordlength = strlen($password);
+if (isset($_POST['next'])) {
+    $cus_name = $_POST['cus_name'];
+    $cus_mob = $_POST['cus_mob'];
+    // $usernamelength = strlen($username);
+    // $passwordlength = strlen($password);
 
-    if ($usernamelength != null  and $passwordlength != null) {
-        $query = array(
-            'username' => $username,
-            'password' => $password,
-        );
-        $query = http_build_query($query);
-        header("location: ../controllers/loginCheck.php?$query");
+    if (strlen($cus_name)!=null && strlen($cus_mob)!= null ) {
+        $hehe= addCustomer($cus_name, $cus_mob);
+        echo $hehe;
+        // $query = array(
+        //     'username' => $username,
+        //     'password' => $password,
+        // );
+        // $query = http_build_query($query);
+        // header("location: ../controllers/loginCheck.php?$query");
     }
 }
 
@@ -84,7 +88,7 @@ if (isset($_POST['submit'])) {
                 <tr>
                     <td></td>
                     <td>
-                        <input type="submit" name="submit" value="Next">
+                        <input type="submit" name="next" value="Next">
                     </td>
                 </tr>
             </table>

@@ -24,7 +24,7 @@ if (isset($_POST['add'])) {
     $mid = $_POST['mid'] ? $_POST['mid'] : "";
 
     if ((strlen($reg) && strlen($res_name) && strlen($branch) && strlen($contact) && strlen($email)) != null) { //add items
-        addRestaurant($reg, $res_name, $branch, $contact, $email, $mid);
+       $msg= addRestaurant($reg, $res_name, $branch, $contact, $email, $mid);
     } else
         $msg = "Input required fields !";
 }

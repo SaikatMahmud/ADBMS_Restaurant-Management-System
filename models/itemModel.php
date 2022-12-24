@@ -9,7 +9,7 @@ function getConnection()
 function getAllItems()
 {
     $con = getConnection();
-    $sql = "select * from items";
+    $sql = "select * from items order by item_no";
     $result = oci_parse($con, $sql);
     // oci_execute($result);
     //return $result;
@@ -91,6 +91,22 @@ function getItemByID($id)
 {
     $con = getConnection();
     $sql = "select * from items where item_no={$id}";
+    $result = oci_parse($con, $sql);
+    // oci_execute($result);
+    //return $result;
+    if (oci_execute($result)) {
+        return $result;
+    } else {
+        return oci_error();
+    }
+}
+
+function searchItem($keyword)
+{
+    $con = getConnection();
+    $sql = "select * from items where item_no like '%{$keyword}%' or lower(description) like lower('%{$keyword}%')";
+    //$sql = "select * from restaurants where branch like '%{$keyword}%' ";
+    //  $sql = "select * from restaurants";
     $result = oci_parse($con, $sql);
     // oci_execute($result);
     //return $result;
