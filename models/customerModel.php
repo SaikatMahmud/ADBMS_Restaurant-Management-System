@@ -1,10 +1,7 @@
 <?php
 
-function getConnection()
-{
-    $con = oci_connect('adbms_project', 'tiger', 'localhost/XE');
-    return $con;
-}
+require_once('getConnection.php');
+
 
 function addCustomer($name, $mob)
 {

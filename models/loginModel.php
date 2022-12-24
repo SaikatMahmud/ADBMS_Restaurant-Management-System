@@ -1,16 +1,7 @@
 <?php
 
-function getConnection()
-{
-    // $host = 'localhost';
-    // $dbuser = 'adbms_project';
-    // $dbpassword = 'tiger';
-    // $dbname = '127.0.0.1:8081';
-   // $con = mysqli_connect($host, $dbuser, $dbpassword, $dbname);
-    //$con=oci_connect($dbuser, $dbpassword, $dbname);
-    $con= oci_connect('adbms_project', 'tiger', 'localhost/XE');
-    return $con;
-}
+require_once('getConnection.php');
+
 
 // function doLogin($username, $password)
 // {

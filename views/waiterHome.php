@@ -1,6 +1,7 @@
 <?php
 require('header.php');
 require('../models/customerModel.php');
+require('../models/orderModel.php');
 
 $worker_id = $_GET['workerid'];
 $username = $_GET['userName'];
@@ -13,14 +14,15 @@ if (isset($_POST['next'])) {
     // $passwordlength = strlen($password);
 
     if (strlen($cus_name)!=null && strlen($cus_mob)!= null ) {
-        $hehe= addCustomer($cus_name, $cus_mob);
-        echo $hehe;
-        // $query = array(
-        //     'username' => $username,
-        //     'password' => $password,
-        // );
-        // $query = http_build_query($query);
-        // header("location: ../controllers/loginCheck.php?$query");
+        $cus_id= addCustomer($cus_name, $cus_mob);
+        $emp_id= '13568'; //dummy value
+        $order_id= addOrder($cus_id,$emp_id);
+        $query = array(
+            'cusID' => $cus_id,
+            'orderID' => $order_id,
+        );
+        $query = http_build_query($query);
+        header("location: add_items_to_order.php?$query");
     }
 }
 
