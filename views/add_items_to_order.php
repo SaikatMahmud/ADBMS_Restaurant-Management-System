@@ -5,27 +5,25 @@ require('../models/orderModel.php');
 
 $c_id = $_GET['cusID'];
 $o_id = $_GET['orderID'];
+$msg = $_GET['msg'];
+$orderTotal = 0.0;
 
 
-if (isset($_POST['next'])) {
-    $cus_name = $_POST['cus_name'];
-    $cus_mob = $_POST['cus_mob'];
+if (isset($_POST['add'])) {
+    $item_no = $_POST['item'];
+    $quantity = $_POST['quantity'];
     // $usernamelength = strlen($username);
     // $passwordlength = strlen($password);
 
-    if (strlen($cus_name)!=null && strlen($cus_mob)!= null ) {
-        $cus_id= addCustomer($cus_name, $cus_mob);
-        $emp_id= '13568'; //dummt value
-        $order_id= addOrder($cus_id,$emp_id);
-        echo $cus_id;
-        echo $order_id;
-        
-        // $query = array(
-        //     'username' => $username,
-        //     'password' => $password,
-        // );
-        // $query = http_build_query($query);
-        // header("location: ../controllers/loginCheck.php?$query");
+    if (strlen($item_no) != null && strlen($quantity) != null) {
+        $stat = add_items_to_order($o_id, $item_no, $quantity);
+        $query = array(
+            'cusID' => $c_id,
+            'orderID' => $o_id,
+            'msg' => $stat
+        );
+        $query = http_build_query($query);
+        header("location: add_items_to_order.php?$query");
     }
 }
 
@@ -34,7 +32,7 @@ if (isset($_POST['next'])) {
 <html>
 
 <head>
-    <title>Add items</title>
+    <title>Add items to order</title>
 </head>
 
 <body>
@@ -47,28 +45,29 @@ if (isset($_POST['next'])) {
             <legend>Add items to order</legend>
 
             <table>
-              <h3>For order #<?= $o_id ?></h3>
-                    <tr>
-                        <td>Item No</td>
-                        <td>
-                            <input type="number" name="item" value="">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Quantity</td>
-                        <td>
-                            <input type="number" name="quantity" value="">
-                        </td>
-                    </tr>
+                <h3>For order #<?= $o_id ?></h3>
+                <tr>
+                    <td>Item No</td>
+                    <td>
+                        <input type="number" name="item" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Quantity</td>
+                    <td>
+                        <input type="number" name="quantity" value="">
+                    </td>
+                </tr>
 
                 <tr>
                     <td></td>
                     <td>
-                        <input type="submit" name="add" value="Next">
+                        <input type="submit" name="add" value="Add">
                     </td>
                 </tr>
             </table>
         </fieldset>
+        <?= $msg ?>
     </form>
 
 
@@ -79,7 +78,7 @@ if (isset($_POST['next'])) {
             <th>Item No</th>
             <th>Quantity</th>
             <th>Item total</th>
-           
+
 
         </tr>
         <tr>
@@ -89,8 +88,9 @@ if (isset($_POST['next'])) {
         <tr>
             <?php
             // if ($products != null) {
-            if (oci_num_rows($products)!=1) {
+            if ($products != null) {
                 while ($row = oci_fetch_assoc($products)) {
+                    $orderTotal += $row['ITEMTOTAL'];
                     foreach ($row as $i => $val) {
 
             ?>
@@ -105,11 +105,11 @@ if (isset($_POST['next'])) {
 <?php }
             } else
                 echo "No Items found"; ?>
-<!-- <?= $deleteError ?> -->
 
 </tr>
-    </table>
+</table>
 
+<h4 align='center'>Order total amount = <?= $orderTotal ?></h4>
 
 
 </body>

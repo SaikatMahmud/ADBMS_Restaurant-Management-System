@@ -43,3 +43,21 @@ function getCart($oid){
 // oci_execute($curs);
 // return $curs;
 }
+
+function add_items_to_order($o_id, $i_no, $qn){
+    $con = getConnection();
+    $sql = "begin ADD_ITEMS_TO_ORDER(:v1, :v2, :v3, :v4); end;";
+    $result = oci_parse($con, $sql);
+    oci_bind_by_name($result, ':v1', $o_id);
+    oci_bind_by_name($result, ':v2', $i_no);
+    oci_bind_by_name($result, ':v3', $qn);
+    oci_bind_by_name($result, ':v4', $got, 100);
+    // oci_execute($result);
+    //return $result;
+    if (oci_execute($result)) {
+        return $got;
+        // header("location: restaurants_admin.php?msg=resAdded");
+    } else {
+        return oci_error();
+    }
+}

@@ -20,6 +20,7 @@ if (isset($_POST['next'])) {
         $query = array(
             'cusID' => $cus_id,
             'orderID' => $order_id,
+            'msg' => ''
         );
         $query = http_build_query($query);
         header("location: add_items_to_order.php?$query");
@@ -96,12 +97,6 @@ if (isset($_POST['next'])) {
             </table>
         </fieldset>
     </form>
-
-
-
-
-
-
 
 
 </body>

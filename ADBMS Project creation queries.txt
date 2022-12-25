@@ -1,0 +1,339 @@
+create table Restaurants (
+reg_num number(10),
+name varchar2(20),
+branch varchar2(25),
+contact_num number(11),
+email varchar2(25),
+manager_id number(10))
+
+create table Managers (
+manager_id number(10),
+name varchar2(18),
+address varchar2(25),
+email varchar2(16),
+salary number(10))
+
+create table Manager_phone(
+manager_id number(10),
+phone_num number(15))
+
+create table Employees (
+employee_id number(10),
+name varchar2(18),
+address varchar2(25),
+hire_date date,
+job varchar2(10),
+salary number(10),
+manager_id number(10))
+
+
+create table Employee_phone(
+employee_id number(10),
+phone_num number(15))
+
+create table Items(
+item_no number(5),
+description varchar2(40),
+price number(6))
+
+create table Customers(
+customer_id number(14),
+name varchar2(20),
+phone_num varchar2(15))
+
+create table Orders(
+order_id number(14),
+amount float(9),
+status varchar2(12),
+customer_id number(14),
+employee_id number(14))
+
+create table Ordered_Item(
+orderItem_id number(14),
+order_id number(14),
+item_no number(14),
+quantity number(5))
+
+create table Bills(
+bill_num number(14),
+total_amount float(10),
+bill_date date,
+order_id number(14),
+customer_id number(14),
+manager_id number(10))
+ 
+create table user_login(
+serial number(7),
+username varchar2(20),
+password varchar2(60),
+role varchar2(12),
+worker_id number(14))
+
+
+
+alter table Restaurants add constraint c1 primary key(reg_num)
+
+alter table Managers add constraint c2 primary key(manager_id)
+
+alter table Manager_phone add constraint c3 primary key(manager_id,phone_num)
+
+alter table Employees add constraint c4 primary key(employee_id)
+
+alter table Employee_phone add constraint c5 primary key(employee_id,phone_num)
+
+alter table Items add constraint c6 primary key(item_no)
+
+alter table Customers add constraint c7 primary key(customer_id)
+
+alter table Orders add constraint c8 primary key(order_id)
+
+alter table Ordered_Item add constraint c9 primary key(orderItem_id)
+
+alter table Bills add constraint c10 primary key(bill_num)
+
+
+
+alter table Restaurants add constraint fk1 foreign key(manager_id) references Managers(manager_id)
+
+alter table Employees add constraint fk2 foreign key(manager_id) references Managers(manager_id)
+
+alter table Orders add constraint fk3 foreign key(customer_id) references Customers(customer_id)
+
+alter table Orders add constraint fk4 foreign key(employee_id) references Employees(employee_id)
+
+alter table Ordered_Item add constraint fk5 foreign key(order_id) references Orders(order_id)
+
+alter table Ordered_Item add constraint fk6 foreign key(item_no) references Items(item_no)
+
+alter table Bills add constraint fk7 foreign key(customer_id) references Customers(customer_id)
+
+alter table Bills add constraint fk8 foreign key(manager_id) references Managers(manager_id)
+
+
+
+create sequence user_login_sq
+start with 1
+increment by 1
+maxvalue 9999
+nocycle
+nocache
+
+create sequence customer_sq
+start with 11000
+increment by 1
+maxvalue 99999
+nocycle
+nocache
+
+
+create sequence order_sq
+start with 11000
+increment by 1
+maxvalue 99999
+nocycle
+nocache
+
+create sequence ordered_item_sq
+start with 21000
+increment by 1
+maxvalue 99999
+nocycle
+nocache
+
+create sequence bill_sq
+start with 31000
+increment by 1
+maxvalue 99999
+nocycle
+nocache
+
+insert into Managers values(147,'Rifat','Dhanmondi','rifat@gmail.com', 9000)
+insert into Managers values(258,'Sajjad','Badda','sajjad@gmail.com', 9500)
+insert into Managers values(369,'Abrar','Gulshan','abrar@yahoo.com', 11000)
+insert into Managers values(159,'Nafis','Uttara','nafis@gmail.com', 9800)
+insert into Managers values(122,'Tuhin','Bashundhara','nafis@gmail.com', 9800)
+
+insert into Restaurants values(5451,'Burgerology','Dhanmondi', 02369794,'burgerology@gmail.com', 147)
+insert into Restaurants values(712334,'Chillox','Bashundhara', 02447322,'chillox@gmail.com', 258)
+insert into Restaurants values(410003,'Burger Lab','Gulshan', 02740954,'bgrlab@gmail.com', 159)
+insert into Restaurants values(887006,'Burger King','Banani', 02878484,'bking@gmail.com', 369)
+insert into Restaurants values(4417006,'Khanas','Uttara', 02852411,'khanas@gmail.com', 122)
+alter table Employees modify job varchar2(16);
+
+
+insert into Manager_phone values(147,0153212314)
+insert into Manager_phone values(258,017367414)
+insert into Manager_phone values(258,017444125)
+insert into Manager_phone values(369,017417555)
+insert into Manager_phone values(159,019067014)
+insert into Manager_phone values(159,018544114)
+insert into Manager_phone values(122,016111525)
+
+
+insert into Employees values(14876,'Sakib','Mohammadpur',to_date('12-6-2019','dd-mm-yyyy'),'Cooker',6000, 147)
+insert into Employees values(13557,'Nibir','Mirpur',to_date('05-12-2018','dd-mm-yyyy'),'Waiter',5500, 369)
+insert into Employees values(13568,'Fuad','Nadda',to_date('25-10-2019','dd-mm-yyyy'),'Waiter',5500, 369)
+insert into Employees values(21364,'Hasan','Jigatola',to_date('17-02-2019','dd-mm-yyyy'),'Delivery Man',5300, 258)
+insert into Employees values(33451,'Sumaiya','Motijhil',to_date('20-7-2019','dd-mm-yyyy'),'Cooker',5500, 147)
+insert into Employees values(70575,'Apurbo','Kuril',to_date('20-7-2019','dd-mm-yyyy'),'Cleaner',5500, 147)
+
+insert into Employee_phone values(13557,0153212314)
+insert into Employee_phone values(14876,017367414)
+insert into Employee_phone values(14876,017444125)
+insert into Employee_phone values(21364,017417555)
+insert into Employee_phone values(33451,019067014)
+insert into Employee_phone values(33451,018544114)
+insert into Employee_phone values(70575,016111525)
+
+
+insert into Items values(101,'Chicken Burger',220);
+insert into Items values(102,'Kacchi', 310)
+insert into Items values(103, 'Biriyani', 190)
+insert into Items values(104, 'Egg Sandwich', 100)
+insert into Items values(105, 'Pizza', 380)
+insert into Items values(106, 'Pizza extra large', 620)
+insert into Items values(107, 'Vanilla Icecream', 80)
+
+insert into Customers values(customer_sq.nextval,'Shahlan',01752131144)
+insert into Customers values(customer_sq.nextval,'Himu',01723654178)
+insert into Customers values(customer_sq.nextval,'Tumpa',017413696998)
+insert into Customers values(customer_sq.nextval,'Sabbir',01577784841)
+insert into Customers values(customer_sq.nextval,'Arafat',01821477541)
+insert into Customers values(customer_sq.nextval,'Mimim',016874547474)
+
+insert into Orders values(order_sq.nextval,750,'pending',11000,13568)
+insert into Orders values(order_sq.nextval,330,'served',11001,13568)
+insert into Orders values(order_sq.nextval,480,'canceled',11001,13568)
+insert into Orders values(order_sq.nextval,920,'pending',11003,13557)
+insert into Orders values(order_sq.nextval,1050,'delivered',11004,21364)
+insert into Orders values(order_sq.nextval,500,'served',11005,21364)
+
+insert into Ordered_Item values(ordered_item_sq.nextval,11000,102,1)
+insert into Ordered_Item values(ordered_item_sq.nextval,11002,101,3)
+insert into Ordered_Item values(ordered_item_sq.nextval,11003,103,2)
+insert into Ordered_Item values(ordered_item_sq.nextval,11003,107,2)
+insert into Ordered_Item values(ordered_item_sq.nextval,11004,106,1)
+insert into Ordered_Item values(ordered_item_sq.nextval,11004,107,1)
+insert into Ordered_Item values(ordered_item_sq.nextval,11005,101,2)
+insert into Ordered_Item values(ordered_item_sq.nextval,11005,107,1)
+
+
+insert into Bills values(bill_sq.nextval,750, to_date('05-12-2018','dd-mm-yyyy'),11000,11000, 258)
+insert into Bills values(bill_sq.nextval,330, to_date('07-5-2021','dd-mm-yyyy'),11001,11001, 369)
+insert into Bills values(bill_sq.nextval,1050, to_date('07-5-2021','dd-mm-yyyy'),11004,11004, 369)
+insert into Bills values(bill_sq.nextval,500, to_date('07-5-2021','dd-mm-yyyy'),11005,11005, 369)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+table Restaurants {
+reg_num int
+name varchar
+branch varchar
+contact_num int
+email varchar
+manager_id int
+}
+
+table Managers {
+manager_id int
+name varchar
+address varchar
+email varchar
+salary int
+}
+
+table Manager_phone{
+manager_id int
+phone_num int
+}
+
+table Employees {
+employee_id int
+name varchar
+address varchar
+hire_date date
+job varchar
+salary int
+manager_id int
+}
+
+table Employee_phone{
+employee_id int
+phone_num int
+}
+
+table Items{
+item_no int
+description varchar
+price int
+}
+
+table Customers{
+customer_id int
+name varchar
+phone_num varchar
+}
+
+table Orders{
+order_id int
+amount float
+status varchar
+customer_id int
+employee_id int
+}
+
+table Ordered_Item{
+orderItem_id int
+order_id int
+item_no int
+quantity int
+}
+
+table Bills{
+bill_num int
+total_amount float
+bill_date date
+order_id int
+customer_id int
+manager_id int
+}
+
+// > many-to-one; < one-to-many; - one-to-one; <> many-to-many
+ref: Bills.bill_num > Managers.manager_id
+ref: Customers.customer_id < Bills.bill_num
+ref:Customers.customer_id < Orders.order_id
+ref: Orders.order_id - Bills.bill_num
+ref: Orders.order_id < Ordered_Item.orderItem_id
+ref: Items.item_no < Ordered_Item.orderItem_id
+ref: Orders.order_id > Employees.employee_id
+ref: Managers.manager_id < Employees.employee_id
+ref: Restaurants.reg_num - Managers.manager_id 
