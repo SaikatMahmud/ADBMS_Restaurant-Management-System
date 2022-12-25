@@ -96,11 +96,12 @@ if (isset($_POST['add'])) {
             ?>
                         <td><?= $val ?></td>
                     <?php } ?>
-                    <!-- <td>
-                        <button><a href="deleteItem_admin.php?id=<?= $row['ITEM_NO'] ?>"> Delete </a></button>
-                        |
-                        <button><a href="editItem_admin.php?id=<?= $row['ITEM_NO'] ?>"> Edit </a></button>
-                    </td> -->
+                  <td>
+                        <button><a href="deleteItemFromOrder_waiter.php?
+                        i_no=<?= $row['ITEM_NO'] ?>&orderID=<?=$o_id?>&cusID=<?=$c_id?>"> Delete </a></button>
+                        <!-- |
+                        <button><a href="editItem_admin.php?id=<?= $row['ITEM_NO'] ?>"> Edit </a></button> -->
+                    </td>
         </tr>
 <?php }
             } else
@@ -110,6 +111,11 @@ if (isset($_POST['add'])) {
 </table>
 
 <h4 align='center'>Order total amount = <?= $orderTotal ?></h4>
+
+<?php
+if($orderTotal>0){ ?>
+    <center><button><a href="placeOrder.php?orderID=<?=$o_id?>&amount=<?=$orderTotal?>"> Place order </a></button></center>
+<?php } ?>
 
 
 </body>

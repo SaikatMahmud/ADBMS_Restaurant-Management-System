@@ -61,3 +61,29 @@ function add_items_to_order($o_id, $i_no, $qn){
         return oci_error();
     }
 }
+
+function deleteItemFromOrder($o_id, $i_no){
+    $con = getConnection();
+    $sql = "delete from ordered_item where order_id='{$o_id}' and item_no='{$i_no}' ";
+    $result = oci_parse($con, $sql);
+    if (oci_execute($result)) {
+        return true;
+        // header("location: restaurants_admin.php?msg=resAdded");
+    } else {
+        return oci_error();
+    }
+}
+
+function placeOrder($o_id, $amount){
+    $con = getConnection();
+    $sql = "begin PLACE_ORDER(:v1, :v2); end;";
+    $result = oci_parse($con, $sql);
+    oci_bind_by_name($result, ':v1', $o_id);
+    oci_bind_by_name($result, ':v2', $amount);
+    if (oci_execute($result)) {
+        return true;
+        // header("location: restaurants_admin.php?msg=resAdded");
+    } else {
+        return oci_error();
+    }
+}
