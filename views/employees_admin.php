@@ -7,11 +7,11 @@ if (isset($_GET['msg'])) {
     if ($_GET['msg'] == 'resAdded') {
         $msg = "Restaurant added successfully !";
     } else if ($_GET['msg'] == 'editSucc') {
-        $msg = "Restaurant edit successfull !";
+        $msg = "Employee edit successfull !";
     } else if ($_GET['msg'] == 'noSresult') {
         $msg = "No search matched !";
     } else {
-        $msg = "Restaurant deleted !";
+        $msg = "Employee deleted !";
     }
 }
 
@@ -24,9 +24,9 @@ if (isset($_POST['add'])) {
  $job = $_POST['job'];
  $sal = $_POST['sal'] ? $_POST['sal'] : "";
  $mob = $_POST['mob'];
- $mid = $_POST['mid'] ? $_POST['mid'] : "";
+ $mid = $_POST['mid'];
 
-    if ((strlen($eid) && strlen($emp_name) && strlen($address) && strlen($hire) && strlen($mob)) != null) { //add emp
+    if ((strlen($eid) && strlen($emp_name) && strlen($address) && strlen($hire) && strlen($mob) && strlen($mid)) != null) { //add emp
          $msg = addEmployee($eid,$emp_name,$address,$date,$job,$sal,$mob,$mid);
     } else
         $msg = "Input required fields !";
@@ -39,7 +39,7 @@ if (isset($_REQUEST['search'])) {
         $search_result = searchRes($search_key);
     }
     if ($search_result == null) {
-        header("location: restaurants_admin.php?msg=noSresult");
+        header("location: employees_admin.php?msg=noSresult");
     } else {
         $msg = '';
     }
@@ -119,7 +119,7 @@ if (isset($_REQUEST['search'])) {
     </form>
     <center> <?= $msg ?> </center>
 
-    <form method='POST' action="#" align='right'>
+    <!-- <form method='POST' action="#" align='right'>
         <input type="text" name="searchTxt" value="">
         <input type="submit" name="search" value="Search">
         <br /><br />
@@ -147,25 +147,27 @@ if (isset($_REQUEST['search'])) {
         </tr>
             </table>
     </form>
-    <br><br>
+    <br><br> -->
 
-    <h3 align='center'> All Restaurats</h3>
+    <h3 align='center'>All employee details</h3>
     <!-- <a href="adminHome.php"> Back</a> -->
     <table border="1" align="center">
         <tr>
-            <th>Reg No</th>
+            <th>Emp ID</th>
             <th>Name</th>
+            <th>Address</th>
+            <th>Hire date</th>
+            <th>Job</th>
+            <th>Salary</th>
+            <th>MGR ID</th>
+            <th>MGR Name</th>
             <th>Branch</th>
-            <th>Contact</th>
-            <th>Email</th>
-            <th>Manager</th>
-            <th>Action</th>
 
         </tr>
         <tr>
             <?php
             // $deleteError = "";
-            $products = getAllRes();
+            $products = getInfoEmp();
             // if (isset($_GET['msg'])) {
             // 	$deleteError = "Delete operation failed !";
             // }
@@ -183,9 +185,9 @@ if (isset($_REQUEST['search'])) {
                         <td><?= $val ?></td>
                     <?php } ?>
                     <td>
-                        <button><a href="deleteRes_admin.php?id=<?= $row['REG_NUM'] ?>"> Delete </a></button>
-                        |
-                        <button><a href="editRes_admin.php?id=<?= $row['REG_NUM'] ?>"> Edit </a></button>
+                        <!-- <button><a href="deleteEmp_admin.php?id=<?= $row['EMPLOYEE_ID'] ?>"> Delete </a></button> -->
+                        <!-- | -->
+                        <button><a href="editEmp_admin.php?id=<?= $row['EMPLOYEE_ID'] ?>"> Edit </a></button>
                     </td>
         </tr>
 <?php }

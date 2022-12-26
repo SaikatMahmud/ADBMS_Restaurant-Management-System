@@ -6,7 +6,7 @@ require('../models/orderModel.php');
 $c_id = $_GET['cusID'];
 $o_id = $_GET['orderID'];
 $msg = $_GET['msg'];
-$orderTotal = 0.0;
+$orderTotal = 0;
 
 
 if (isset($_POST['add'])) {
