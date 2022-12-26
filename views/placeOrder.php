@@ -10,3 +10,4 @@ if ($placed){
 
     header("location: waiterHome.php");
 }
+

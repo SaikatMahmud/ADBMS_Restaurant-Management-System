@@ -58,6 +58,8 @@ if (isset($_REQUEST['search'])) {
 </head>
 
 <body>
+    <h3 align="left"><a href="adminHome.php">Goto Admin Home</a></h3>
+
     <h3 align="right"><a href="../controllers/logout.php"> logout</a></h3>
     <form method="POST" action="#">
         <table>

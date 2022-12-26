@@ -24,7 +24,7 @@ function addOrder($c_id, $e_id)
 function getCart($oid){
     $con = getConnection();
     $curs = oci_new_cursor($con);
-    $sql = "begin GET_TEMP_ORDER_ITEMS(:v1, :v2); end;";
+    $sql = "begin GET_ORDER_ITEMS(:v1, :v2); end;"; //cart
     $result = oci_parse($con, $sql);
     oci_bind_by_name($result, ':v1', $oid);
     oci_bind_by_name($result, ':v2', $curs, -1, OCI_B_CURSOR);
@@ -82,6 +82,33 @@ function placeOrder($o_id, $amount){
     oci_bind_by_name($result, ':v2', $amount);
     if (oci_execute($result)) {
         return true;
+        // header("location: restaurants_admin.php?msg=resAdded");
+    } else {
+        return oci_error();
+    }
+}
+
+function unservedOrder(){
+    $con = getConnection();
+    $curs = oci_new_cursor($con);
+    $sql = "begin GET_UNSERVED_ORDER(:v1); end;";
+    $result = oci_parse($con, $sql);
+    oci_bind_by_name($result, ':v1', $curs, -1, OCI_B_CURSOR);
+    if (oci_execute($result)) {
+        oci_execute($curs);
+        return $curs;
+        // header("location: restaurants_admin.php?msg=resAdded");
+    } else {
+        return oci_error();
+    }
+}
+
+function orderToDeliver(){
+    $con = getConnection();
+    $sql = "select * from ORDER_TO_DELIVER";
+    $result = oci_parse($con, $sql);
+    if (oci_execute($result)) {
+        return $result;
         // header("location: restaurants_admin.php?msg=resAdded");
     } else {
         return oci_error();

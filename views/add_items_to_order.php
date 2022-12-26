@@ -72,7 +72,7 @@ if (isset($_POST['add'])) {
 
 
 
-    <h3 align='center'> All items</h3>
+    <h3 align='center'>Items to order</h3>
     <table border="1" align="center">
         <tr>
             <th>Item No</th>
@@ -91,7 +91,7 @@ if (isset($_POST['add'])) {
             if ($products != null) {
                 while ($row = oci_fetch_assoc($products)) {
                     $orderTotal += $row['ITEMTOTAL'];
-                    foreach ($row as $i => $val) {
+                    foreach (array_slice($row,1) as $i => $val) {
 
             ?>
                         <td><?= $val ?></td>

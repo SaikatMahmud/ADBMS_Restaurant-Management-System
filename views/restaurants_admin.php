@@ -24,7 +24,7 @@ if (isset($_POST['add'])) {
     $mid = $_POST['mid'] ? $_POST['mid'] : "";
 
     if ((strlen($reg) && strlen($res_name) && strlen($branch) && strlen($contact) && strlen($email)) != null) { //add items
-       $msg= addRestaurant($reg, $res_name, $branch, $contact, $email, $mid);
+        $msg = addRestaurant($reg, $res_name, $branch, $contact, $email, $mid);
     } else
         $msg = "Input required fields !";
 }
@@ -50,6 +50,8 @@ if (isset($_REQUEST['search'])) {
 </head>
 
 <body>
+    <h3 align="left"><a href="adminHome.php">Goto Admin Home</a></h3>
+
     <h3 align="right"><a href="../controllers/logout.php"> logout</a></h3>
     <form method="POST" action="#">
         <table>

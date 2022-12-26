@@ -11,6 +11,7 @@ $username = $_GET['userName'];
 </head>
 
 <body>
+    <h3 align="left"><a href="adminHome.php">Goto Admin Home</a></h3>
     <h2 align="center">You logged in as <u><?= $username ?></u> -admin</h2>
     <h3 align="right"><a href="../controllers/logout.php"> logout</a></h3>
     <br />
@@ -26,6 +27,12 @@ $username = $_GET['userName'];
     <fieldset>
             <legend><h3>CRUD Restaurants</h3></legend>
             <button><a href="restaurants_admin.php">Add / View / Edit / Delete Items </a> </button><br>
+
+            </table>
+        </fieldset>
+    <fieldset>
+            <legend><h3>CRUD Employee</h3></legend>
+            <button><a href="employees_admin.php">Add / View / Edit / Delete Items </a> </button><br>
 
             </table>
         </fieldset>
