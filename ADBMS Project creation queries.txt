@@ -70,6 +70,14 @@ role varchar2(12),
 worker_id number(14))
 
 
+create table LOG_INFO (
+log_id number(10),
+operation varchar2(20),
+table_name varchar2(20),
+date_time timestamp)
+
+
+
 
 alter table Restaurants add constraint c1 primary key(reg_num)
 
@@ -109,6 +117,7 @@ alter table Bills add constraint fk7 foreign key(customer_id) references Custome
 
 alter table Bills add constraint fk8 foreign key(manager_id) references Managers(manager_id)
 
+alter table LOG_INFO add constraint c12 primary key(log_id)
 
 
 create sequence user_login_sq
@@ -142,6 +151,14 @@ nocache
 
 create sequence bill_sq
 start with 31000
+increment by 1
+maxvalue 99999
+nocycle
+nocache
+
+select * from log_info
+create sequence log_sq
+start with 1
 increment by 1
 maxvalue 99999
 nocycle

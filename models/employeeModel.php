@@ -7,7 +7,7 @@ function addEmployee($eid, $name, $add, $hire, $job, $sal, $mob, $managerID)
 {
     $con = getConnection();
     // $sql = "insert into restaurants values('{$reg}','{$name}','{$branch}','{$contact}','{$email}','{$managerID}')";
-    $sql = "begin add_emp(:v1, :v2, :v3, :v4, :v5, :v6, :v7, :v8, :v9); end;";
+    $sql = "begin EMP_MODEL.add_emp(:v1, :v2, :v3, :v4, :v5, :v6, :v7, :v8, :v9); end;";
     $result = oci_parse($con, $sql);
     oci_bind_by_name($result, ':v1', $eid);
     oci_bind_by_name($result, ':v2', $name);
@@ -62,7 +62,7 @@ function editEmp($eid, $name, $add, $hire, $job, $sal, $managerID)
 {
     $con = getConnection();
     // $sql = "insert into restaurants values('{$reg}','{$name}','{$branch}','{$contact}','{$email}','{$managerID}')";
-    $sql = "begin edit_emp(:v1, :v2, :v3, :v4, :v5, :v6, :v7); end;";
+    $sql = "begin EMP_MODEL.edit_emp(:v1, :v2, :v3, :v4, :v5, :v6, :v7); end;";
     $result = oci_parse($con, $sql);
     oci_bind_by_name($result, ':v1', $eid);
     oci_bind_by_name($result, ':v2', $name);

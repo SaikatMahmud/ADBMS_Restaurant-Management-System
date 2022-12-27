@@ -16,18 +16,17 @@ if (isset($_GET['msg'])) {
 }
 
 if (isset($_POST['add'])) {
- $eid = $_POST['eid'];
- $emp_name = $_POST['emp_name'];
- $address = $_POST['address'];
- $hire = $_POST['hire'];
- $date= DateTime::createFromFormat('d-m-Y', $hire);
- $job = $_POST['job'];
- $sal = $_POST['sal'] ? $_POST['sal'] : "";
- $mob = $_POST['mob'];
- $mid = $_POST['mid'];
+    $eid = $_POST['eid'];
+    $emp_name = $_POST['emp_name'];
+    $address = $_POST['address'];
+    $hire = $_POST['hire'];
+    $job = $_POST['job'];
+    $sal = $_POST['sal'] ? $_POST['sal'] : "";
+    $mob = $_POST['mob'];
+    $mid = $_POST['mid'];
 
     if ((strlen($eid) && strlen($emp_name) && strlen($address) && strlen($hire) && strlen($mob) && strlen($mid)) != null) { //add emp
-         $msg = addEmployee($eid,$emp_name,$address,$date,$job,$sal,$mob,$mid);
+        $msg = addEmployee($eid, $emp_name, $address, $hire, $job, $sal, $mob, $mid);
     } else
         $msg = "Input required fields !";
 }

@@ -7,7 +7,7 @@ function addRestaurant($reg, $name, $branch, $contact, $email, $managerID)
 {
     $con = getConnection();
     // $sql = "insert into restaurants values('{$reg}','{$name}','{$branch}','{$contact}','{$email}','{$managerID}')";
-    $sql = "begin add_res(:v1, :v2, :v3, :v4, :v5, :v6, :v7); end;";
+    $sql = "begin res_model.add_res(:v1, :v2, :v3, :v4, :v5, :v6, :v7); end;";
     $result = oci_parse($con, $sql);
     oci_bind_by_name($result, ':v1', $reg);
     oci_bind_by_name($result, ':v2', $name);
@@ -43,7 +43,7 @@ function getAllRes()
 function deleteRes($id)
 {
     $con = getConnection();
-    $sql = "begin delete_res(:v1, :v2); end;";
+    $sql = "begin res_model.delete_res(:v1, :v2); end;";
     $result = oci_parse($con, $sql);
     oci_bind_by_name($result, ':v1', $id);
     oci_bind_by_name($result, ':v2', $got, 100);
@@ -59,11 +59,18 @@ function deleteRes($id)
 function editRes($reg, $res_name, $branch, $contact, $email, $mid, $prev_reg)
 {
     $con = getConnection();
-    $sql = "update Restaurants set reg_num='{$reg}',name='{$res_name}', branch='{$branch}',
-            contact_num='{$contact}', email='{$email}', manager_id='{$mid}' where reg_num='{$prev_reg}'";
+    // $sql = "update Restaurants set reg_num='{$reg}',name='{$res_name}', branch='{$branch}',
+    //         contact_num='{$contact}', email='{$email}', manager_id='{$mid}' where reg_num='{$prev_reg}'";
+    $sql = "begin res_model.edit_res(:v1, :v2, :v3, :v4, :v5, :v6, :v7); end;";
     $result = oci_parse($con, $sql);
-    // oci_execute($result);
-    //return $result;
+    oci_bind_by_name($result, ':v1', $reg);
+    oci_bind_by_name($result, ':v2', $res_name);
+    oci_bind_by_name($result, ':v3', $branch);
+    oci_bind_by_name($result, ':v4', $contact);
+    oci_bind_by_name($result, ':v5', $email);
+    oci_bind_by_name($result, ':v6', $mid);
+    oci_bind_by_name($result, ':v7', $prev_reg);
+
     if (oci_execute($result)) {
         header("location: restaurants_admin.php?msg=editSucc");
     } else {
