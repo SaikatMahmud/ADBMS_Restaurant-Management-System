@@ -25,6 +25,8 @@ if (isset($_POST['add'])) {
         $query = http_build_query($query);
         header("location: add_items_to_order.php?$query");
     }
+    else
+    $msg ='Input required fields';
 }
 
 ?>

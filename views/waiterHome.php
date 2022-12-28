@@ -5,6 +5,13 @@ require('../models/orderModel.php');
 
 $worker_id = $_GET['workerid'];
 $username = $_GET['userName'];
+$msg= '';
+//$msg= $_GET['msg'] ?  $_GET['msg'] :'';
+if (isset($_GET['msg'])) {
+    if ($_GET['msg'] == 'orderPlaced') {
+        $msg = "Order placed !";
+    } 
+}
 
 
 if (isset($_POST['next'])) {
@@ -39,7 +46,8 @@ if (isset($_POST['next'])) {
     <h2 align="center">You logged in as <u><?= $username ?></u> -waiter</h2>
     <h3 align="right"><a href="../controllers/logout.php"> logout</a></h3>
     <br />
-    <button><a href="showAllitems_waiter.php">Show All Items </a> </button><br></br>
+    <button><a href="showAllitems_waiter.php">Show All Items </a> </button>  
+    <button><a href="pendingOrderList.php">View Pending Orders </a> </button><br></br>
     <form method="POST" action="#">
         <fieldset>
             <legend>Take Order</legend>
@@ -98,7 +106,7 @@ if (isset($_POST['next'])) {
         </fieldset>
     </form>
 
-
+<?= $msg?>
 </body>
 
 </html>

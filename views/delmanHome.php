@@ -3,8 +3,16 @@ require('header.php');
 require('../models/customerModel.php');
 require('../models/orderModel.php');
 
-$worker_id = $_GET['workerid'];
-$username = $_GET['userName'];
+// $worker_id = $_GET['workerid'];
+// $username = $_GET['userName'];
+
+$msg= '';
+//$msg= $_GET['msg'] ?  $_GET['msg'] :'';
+if (isset($_GET['msg'])) {
+    if ($_GET['msg'] == 'delSucc') {
+        $msg = "Order delivery confimed !";
+    } 
+}
 
 
 // if (isset($_POST['next'])) {
@@ -37,7 +45,7 @@ $username = $_GET['userName'];
 
 <body>
 
-    <h2 align="center">You logged in as <u><?= $username ?></u> -delivery man</h2>
+    <h2 align="center">You logged in as -delivery man</h2>
     <h3 align="right"><a href="../controllers/logout.php"> logout</a></h3>
     <br />
 
@@ -65,12 +73,12 @@ $username = $_GET['userName'];
                     ?>
                         <td><?= $val ?></td>
                     <?php } ?>
-                    <!-- <td>
-                        <button><a href="deleteItemFromOrder_waiter.php?
+                    <td>
+                        <!-- <button><a href="deleteItemFromOrder_waiter.php?
                         i_no=<?= $row['ITEM_NO'] ?>&orderID=<?= $o_id ?>&cusID=<?= $c_id ?>"> Delete </a></button>
-                        <!-- |
-                        <button><a href="editItem_admin.php?id=<?= $row['ITEM_NO'] ?>"> Edit </a></button> -->
-                    <!-- </td>  -->
+                         | -->
+                        <button><a href="deliverOrder.php?orderID=<?= $row['ORDER_ID'] ?>">Confirm Delivery </a></button>
+                    </td> 
         </tr>
 <?php }
             } else

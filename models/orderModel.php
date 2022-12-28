@@ -114,3 +114,45 @@ function orderToDeliver(){
         return oci_error();
     }
 }
+
+function pendingOrder(){
+    $con = getConnection();
+    $curs = oci_new_cursor($con);
+    $sql = "begin GET_PENDING_ORDER(:v1); end;";
+    $result = oci_parse($con, $sql);
+    oci_bind_by_name($result, ':v1', $curs, -1, OCI_B_CURSOR);
+    if (oci_execute($result)) {
+        oci_execute($curs);
+        return $curs;
+        // header("location: restaurants_admin.php?msg=resAdded");
+    } else {
+        return oci_error();
+    }
+}
+
+
+function cancelOrder($o_id){
+    $con = getConnection();
+    $sql = "begin CANCEL_ORDER(:v1); end;";
+    $result = oci_parse($con, $sql);
+    oci_bind_by_name($result, ':v1', $o_id);
+    if (oci_execute($result)) {
+        return true;
+        // header("location: restaurants_admin.php?msg=resAdded");
+    } else {
+        return oci_error();
+    }
+}
+
+function deliverOrder($o_id){
+    $con = getConnection();
+    $sql = "begin DELIVER_ORDER(:v1); end;";
+    $result = oci_parse($con, $sql);
+    oci_bind_by_name($result, ':v1', $o_id);
+    if (oci_execute($result)) {
+        return true;
+        // header("location: restaurants_admin.php?msg=resAdded");
+    } else {
+        return oci_error();
+    }
+}

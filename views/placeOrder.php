@@ -7,6 +7,6 @@ $am = $_GET['amount'];
 
 $placed=placeOrder($o_id, $am);
 if ($placed){
-    header("location: waiterHome.php");
+    header("location: waiterHome.php?msg=orderPlaced");
 }
 
