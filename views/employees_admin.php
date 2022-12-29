@@ -97,7 +97,7 @@ if (isset($_REQUEST['search'])) {
             <tr>
                 <td>Mobile-</td>
                 <td>
-                    <input type="text" name="mob" value="">
+                    <input type="number" name="mob" value="">
                 </td>
             </tr>
             <tr>
